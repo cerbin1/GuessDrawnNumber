@@ -3,14 +3,27 @@ package bartek;
 import java.util.Scanner;
 
 class Game {
-    private Player player = new Player(0, 0);
+    private Player player = new Player();
     private Scanner reader = new Scanner(System.in);
-
 
 
     private int getNumber() {
         System.out.println("Zgadnij jaka liczbe wylosowalem: ");
         return reader.nextInt();
+    }
+
+    public void start() {
+        Game game = new Game();
+        while (true) {
+            player.setDifficultyNumber();
+            if (player.getDifficulty() > 0 && player.getDifficulty() < 4) {
+                break;
+            } else {
+                Console.displayWrongData();
+            }
+        }
+        int number = game.randomNumber(player.getDifficulty());
+        game.runTheGame(number);
     }
 
     int randomNumber(int difficulty) { // TODO to powinno nie zwracac nic i nie przyjmowac parametru
@@ -26,7 +39,6 @@ class Game {
                 return 0;
         }
     }
-
 
 
     void runTheGame(int drawnNumber) {

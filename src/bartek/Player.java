@@ -8,9 +8,9 @@ class Player {
     int tries;
     private int difficulty;
 
-    Player(int tries, int difficulty) {
-        this.tries = tries;
-        this.difficulty = difficulty;
+    Player() {
+        tries = 0;
+        difficulty = 0;
     }
 
     void incrementTries() {
