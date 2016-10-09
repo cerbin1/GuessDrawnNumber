@@ -12,7 +12,7 @@ class Game {
         return reader.nextInt();
     }
 
-    public void start() {
+    public void startTheGame() {
         Game game = new Game();
         while (true) {
             player.setDifficultyNumber();
