@@ -1,22 +1,20 @@
 package bartek;
 
-import java.util.Scanner;
 
 public class Application {
-    private final static Scanner reader = new Scanner(System.in); // TODO nieużywana zmienna
+    private Player player = new Player(0, 0);
 
     private void start() {
-        boolean variable = true; // TODO wywal zmienna
         Game game = new Game();
-        while (variable) {
-            game.difficulty = game.getDifficultyNumber();
-            if (game.difficulty > 0 && game.difficulty < 4) {
-                variable = false;  // TODO zamien na breaka
+        while (true) {
+            player.setDifficultyNumber();
+            if (player.getDifficulty() > 0 && player.getDifficulty() < 4) {
+                break;
             } else {
                 System.out.println("Niepoprawne dane!");
             }
         }
-        int number = game.randomNumber(game.difficulty);
+        int number = game.randomNumber(player.getDifficulty());
         game.runTheGame(number);
     }
 

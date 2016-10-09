@@ -3,17 +3,12 @@ package bartek;
 import java.util.Scanner;
 
 class Game {
-    int difficulty;
-    private Player player = new Player(0);
-
-    Game() {
-        difficulty = 0;
-    }
-
+    private Player player = new Player(0, 0);
     private Scanner reader = new Scanner(System.in);
 
+
+
     private int getNumber() {
-        Scanner reader = new Scanner(System.in);
         System.out.println("Zgadnij jaka liczbe wylosowalem: ");
         return reader.nextInt();
     }
@@ -32,15 +27,7 @@ class Game {
         }
     }
 
-    int getDifficultyNumber() { // TODO to do innej klasy
-        System.out.println("Podaj poziom trudnosci 1 - easy, 2 - medium, 3 - hard");
-        try {
-            this.difficulty = Integer.parseInt(reader.nextLine());
-        } catch (NumberFormatException n) {
-            System.out.print("");
-        }
-        return difficulty;
-    }
+
 
     void runTheGame(int drawnNumber) {
         System.out.println("Wylosowalem liczbe");
