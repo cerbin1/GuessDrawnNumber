@@ -7,26 +7,36 @@ class Game {
     private Scanner reader = new Scanner(System.in);
 
 
-    private int getNumber() {
-        System.out.println("Zgadnij jaka liczbe wylosowalem: ");
+    void runTheGame() {
+        player.setDifficultyLevel();
+        int drawnNumber = randomNumber(player.getDifficulty());
+        Console.displayThatNumberIsDrawn();
+        while (true) {
+            player.setGuessNumber();
+            if (player.getGuessNumber() == drawnNumber) {
+                System.out.println("Wygrales");
+                System.out.println("Popelniles " + player.getTries() + " bledow.");
+                break;
+            } else {
+                player.incrementTries();
+                if (player.checkIfNumber()) {
+                    System.out.println("Nie udalo sie odgadnac liczby, sprobuj jeszcze raz :)");
+                    if (drawnNumber > player.getGuessNumber()) {
+                        System.out.println("Wylosowana liczba jest wieksza");
+                    } else {
+                        System.out.println("Wylosowana liczba jest mniejsza");
+                    }
+                }
+            }
+        }
+    }
+
+    private int getNumberToGuess() {
+        System.out.println("Zgadnij jaka liczbe wylosowalem: "); //TODO
         return reader.nextInt();
     }
 
-    public void startTheGame() {
-        Game game = new Game();
-        while (true) {
-            player.setDifficultyNumber();
-            if (player.getDifficulty() > 0 && player.getDifficulty() < 4) {
-                break;
-            } else {
-                Console.displayWrongData();
-            }
-        }
-        int number = game.randomNumber(player.getDifficulty());
-        game.runTheGame(number);
-    }
-
-    int randomNumber(int difficulty) { // TODO to powinno nie zwracac nic i nie przyjmowac parametru
+    private int randomNumber(int difficulty) { // TODO to powinno nie zwracac nic i nie przyjmowac parametru
         switch (difficulty) {
             case 1:
                 return (int) (Math.random() * 10);
@@ -40,24 +50,4 @@ class Game {
         }
     }
 
-
-    void runTheGame(int drawnNumber) {
-        System.out.println("Wylosowalem liczbe");
-        while (true) {
-            int guessedNumber = getNumber();
-            if (guessedNumber == drawnNumber) {
-                System.out.println("Wygrales");
-                System.out.println("Popelniles " + player.tries + " bledow.");
-                break;
-            } else {
-                System.out.println("Nie udalo sie odgadnac liczby, sprobuj jeszcze raz :)");
-                player.incrementTries();
-                if (drawnNumber > guessedNumber) {
-                    System.out.println("Wylosowana liczba jest wieksza");
-                } else {
-                    System.out.println("Wylosowana liczba jest mniejsza");
-                }
-            }
-        }
-    }
 }

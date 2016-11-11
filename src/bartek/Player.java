@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 class Player {
     private Scanner reader = new Scanner(System.in);
+    private Console console = new Console();
 
-    int tries;
+    private int tries;
     private int difficulty;
+    private int guessNumber;
 
     Player() {
         tries = 0;
@@ -17,16 +19,46 @@ class Player {
         tries++;
     }
 
-    void setDifficultyNumber() {
-        System.out.println("Podaj poziom trudnosci 1 - easy, 2 - medium, 3 - hard");
-        try {
-            difficulty = Integer.parseInt(reader.nextLine());
-        } catch (NumberFormatException n) {
-            System.err.println("Nie podales poprawnej wartosci");
+    void setDifficultyLevel() {
+        while (true) {
+            try {
+                Console.askForDifficultyLevel();
+                difficulty = Integer.parseInt(reader.nextLine());
+                if (difficulty > 0 && difficulty < 4) {
+                    System.out.println("you chose " + console.getDifficultyName(difficulty - 1));
+                    break;
+                } else {
+                    Console.displayWrongMenuOption();
+                }
+            } catch (NumberFormatException n) {
+                Console.displayNumberIsNotCorrect();
+            }
+
         }
+    }
+
+    boolean checkIfNumber() {
+        return this.guessNumber > 0;
+    }
+
+    void setGuessNumber() {
+        try {
+            Console.askForNumberToGuess();
+            guessNumber = Integer.parseInt(reader.nextLine());
+        } catch (NumberFormatException e) {
+            System.err.println("Wrong input");
+        }
+    }
+
+    int getGuessNumber() {
+        return guessNumber;
     }
 
     int getDifficulty() {
         return difficulty;
+    }
+
+    int getTries() {
+        return tries;
     }
 }
